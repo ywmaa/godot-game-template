@@ -1,5 +1,7 @@
 # godot-game-template
 
+##### Godot Version is 4.3 Stable
+
 This template serves as a base for most games in Godot, it gets you up and running with 
 basic main menu, settings, credits window, Debug UI (FPS debugging, etc), Logger (for better logging and ability to save to file) 
 better keybindings system and easy to extend.
@@ -28,11 +30,11 @@ Game entry point is main.tscn and main.gd
 
 ### Naming Conventions
 ```
-Files				kebab-case (any file on disk that is not a folder)
-Folders				PascalCase
+Files               kebab-case (any file on disk that is not a folder)
+Folders             PascalCase
 
-Classes				PascalCase
-Nodes				PascalCase
+Classes             PascalCase
+Nodes               PascalCase
 
 Macros			    ALL_CAPS
 
@@ -52,14 +54,15 @@ examples:
 ```
 var this_is_int : int = 42
 var this_is_a_float : float = 3.14159265359
-var this_is_a_bool : bool = true;
+var this_is_a_bool : bool = true
 ```
 #### Functions
 functions must/should be named snake_case.
 
 examples:
 ```
-void function_name(args);
+func function_name(args) -> void:
+	pass
 ```
 
 #### Enums
