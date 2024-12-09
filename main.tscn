@@ -21,3 +21,6 @@ world_3d = NodePath("World3D")
 [node name="LevelManager" type="Node" parent="." node_paths=PackedStringArray("spawn_location")]
 script = ExtResource("2_weqx3")
 spawn_location = NodePath("../World2D")
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="LevelManager"]
+spawn_path = NodePath("../../World2D")

@@ -36,7 +36,7 @@ Folders             PascalCase
 Classes             PascalCase
 Nodes               PascalCase
 
-Macros			    ALL_CAPS
+Macros              ALL_CAPS
 
 Enum                E_ALL_CAPS
 Enum Members        ALL_CAPS

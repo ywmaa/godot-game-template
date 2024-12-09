@@ -6,13 +6,12 @@ class_name LevelManager
 ##
 
 var current_level_scene : Node
-var namee: bool = true
-# for multiplayer only
-#@onready var level_spawner : MultiplayerSpawner = $LevelSpawner
+
+@onready var level_spawner : MultiplayerSpawner = $LevelSpawner
 @export var spawn_location : Node
 @export var maps : Array[map_data]
-# could be useful
-#var transition_maps : Array[map_data] = [map_data.new("res://Levels/PracticeMap/Practice.tscn","","Training Arena")]
+# could be useful for small level transition during main level loading
+#var transition_maps : Array[map_data]
 
 enum {LEVEL_NULL, LEVEL_LOADING, LEVEL_LOADED, LEVEL_ERROR}
 
@@ -32,14 +31,11 @@ signal level_loaded
 
 
 func _ready():
-	pass
-	## This is just for multiplayer IF NEEDED
-	#level_spawner.connect("despawned", network_client_level_unloaded)
-	#level_spawner.connect("spawned", network_client_level_loaded)
-	#level_spawner.spawn_path = level_spawner.get_path_to(spawn_location)
-	#for map in multiplayer_maps:
-		#level_spawner.add_spawnable_scene(map.path)
-		
+	level_spawner.connect("despawned", network_client_level_unloaded)
+	level_spawner.connect("spawned", network_client_level_loaded)
+	level_spawner.spawn_path = level_spawner.get_path_to(spawn_location)
+	for map in maps:
+		level_spawner.add_spawnable_scene(map.path.resource_path)
 
 func _process(_delta):
 	############# Loading 
@@ -91,9 +87,9 @@ func _load_scene(resource : Resource):
 	current_level_scene = resource.instantiate()
 	spawn_location.add_child(current_level_scene)
 	level_status = LEVEL_LOADED
-## This is just for multiplayer IF NEEDED
-#func network_client_level_loaded(node: Node3D):
-	#current_level_scene = node
-	#level_status = LEVEL_LOADED
-#func network_client_level_unloaded(node: Node3D):
-	#level_status = LEVEL_NULL
+
+func network_client_level_loaded(spawned_node: Node3D):
+	current_level_scene = spawned_node
+	level_status = LEVEL_LOADED
+func network_client_level_unloaded(_despawned_node: Node3D):
+	level_status = LEVEL_NULL
