@@ -6,7 +6,7 @@ class_name LevelManager
 ##
 
 var current_level_scene : Node
-
+var namee: bool = true
 # for multiplayer only
 #@onready var level_spawner : MultiplayerSpawner = $LevelSpawner
 @export var spawn_location : Node
