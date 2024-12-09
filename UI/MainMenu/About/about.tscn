@@ -1,0 +1,215 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2rxt80n0a3s2"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/About/about.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://w3qqw5e5lfhf" path="res://UI/MainMenu/About/icon.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://ct5p0pt0528rf" path="res://icon.svg" id="8"]
+[ext_resource type="Texture2D" uid="uid://dffi13lyeb0qo" path="res://UI/MainMenu/About/Logos/youtube.png" id="10_rnymc"]
+[ext_resource type="Texture2D" uid="uid://byct36ma10b0r" path="res://UI/MainMenu/About/Logos/twitter.png" id="11_tuxx0"]
+[ext_resource type="Texture2D" uid="uid://b5hsn8xen4qn3" path="res://UI/MainMenu/About/Logos/patreon.png" id="12_3of8n"]
+[ext_resource type="Texture2D" uid="uid://h1yvsqwxhhdm" path="res://UI/MainMenu/About/Logos/discord.png" id="13_700i1"]
+[ext_resource type="Texture2D" uid="uid://s3mbkfawcxs5" path="res://UI/MainMenu/About/Logos/github.png" id="14_jexwr"]
+
+[node name="About" type="PopupPanel"]
+disable_3d = true
+transparent_bg = true
+title = "About..."
+size = Vector2i(700, 400)
+visible = true
+wrap_controls = false
+transient = false
+unresizable = false
+always_on_top = true
+transparent = true
+min_size = Vector2i(700, 400)
+script = ExtResource("1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 700.0
+offset_bottom = 396.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(628, 377)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="MMLogo" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("8")
+expand_mode = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ApplicationName" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Room"
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="TabContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(628, 281)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_alignment = 1
+current_tab = 0
+
+[node name="Authors" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(620, 245)
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="List" type="GridContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer/Authors"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Godot" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer/Authors/List"]
+visible = false
+layout_mode = 2
+
+[node name="Godot" type="TextureButton" parent="HBoxContainer/VBoxContainer/VBoxContainer/Authors/List/Godot"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer/Authors/List/Godot"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Made Using The Awesome Godot Engine"
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer/Authors/List"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "- Game Design:
+
+- Programming:
+
+- Level Design:
+
+- Sound Design:
+
+- Music Composition:
+
+- Game Artist:
+
+
+Third Party Tools & Resources:
+-"
+autowrap_mode = 3
+
+[node name="Donors" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(620, 245)
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer/Donors"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/VBoxContainer/Donors/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/VBoxContainer/Donors/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+stretch_mode = 1
+
+[node name="Node" type="Control" parent="HBoxContainer/VBoxContainer/VBoxContainer/Donors/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer/Donors/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PatronsLabel" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer/Donors/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Sponsors"
+
+[node name="Patrons" type="ItemList" parent="HBoxContainer/VBoxContainer/VBoxContainer/Donors/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_columns = 4
+same_column_width = true
+fixed_column_width = 190
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SocialNetworks" type="VBoxContainer" parent="HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Youtube" type="TextureButton" parent="HBoxContainer/SocialNetworks"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("10_rnymc")
+stretch_mode = 4
+
+[node name="Twitter" type="TextureButton" parent="HBoxContainer/SocialNetworks"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("11_tuxx0")
+stretch_mode = 4
+
+[node name="Patreon" type="TextureButton" parent="HBoxContainer/SocialNetworks"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("12_3of8n")
+
+[node name="Discord" type="TextureButton" parent="HBoxContainer/SocialNetworks"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("13_700i1")
+stretch_mode = 4
+
+[node name="Github" type="TextureButton" parent="HBoxContainer/SocialNetworks"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("14_jexwr")
+stretch_mode = 4
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/VBoxContainer/Authors/List/Godot/Godot" to="." method="open_url" binds= ["https://godotengine.org/"]]
+[connection signal="pressed" from="HBoxContainer/SocialNetworks/Youtube" to="." method="open_url" binds= ["https://www.youtube.com/"]]
+[connection signal="pressed" from="HBoxContainer/SocialNetworks/Twitter" to="." method="open_url" binds= ["https://twitter.com/"]]
+[connection signal="pressed" from="HBoxContainer/SocialNetworks/Patreon" to="." method="open_url" binds= ["https://www.patreon.com/YwmaaStudio"]]
+[connection signal="pressed" from="HBoxContainer/SocialNetworks/Discord" to="." method="open_url" binds= ["https://discord.com/"]]
+[connection signal="pressed" from="HBoxContainer/SocialNetworks/Github" to="." method="open_url" binds= ["https://github.com/"]]

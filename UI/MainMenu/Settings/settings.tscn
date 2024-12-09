@@ -1,0 +1,368 @@
+[gd_scene load_steps=15 format=3 uid="uid://c3m45eysuprou"]
+
+[ext_resource type="PackedScene" uid="uid://j0h2k5ipgm0h" path="res://UI/MainMenu/SideTabsWidget/side-tabs-widget.tscn" id="2_bj11o"]
+[ext_resource type="Texture2D" uid="uid://7rnrnfes2clm" path="res://UI/MainMenu/Settings/icons/display_fullscreen.svg" id="2_us8yy"]
+[ext_resource type="Script" path="res://UI/MainMenu/Settings/SettingsLogic/toggle-button-settings.gd" id="3_kr2km"]
+[ext_resource type="Texture2D" uid="uid://dlvhau28nu82n" path="res://UI/MainMenu/Settings/icons/display_size.svg" id="4_2dg0r"]
+[ext_resource type="Script" path="res://UI/MainMenu/Settings/SettingsLogic/option-button-settings.gd" id="5_yjp23"]
+[ext_resource type="Script" path="res://UI/MainMenu/Settings/SettingsLogic/slider-settings.gd" id="6_swit4"]
+[ext_resource type="Texture2D" uid="uid://dimhb46k7ud10" path="res://UI/MainMenu/Settings/icons/display_scale.svg" id="6_uo0ho"]
+[ext_resource type="PackedScene" uid="uid://p1onwebf6dy" path="res://UI/MainMenu/Settings/SettingsLogic/sound-setting.tscn" id="7_cpsos"]
+[ext_resource type="Script" path="res://UI/MainMenu/Settings/SettingsLogic/label-with-value.gd" id="8_aarec"]
+[ext_resource type="PackedScene" uid="uid://b378l5l1leca3" path="res://UI/MainMenu/InputUI/remap.tscn" id="13_p7f2x"]
+[ext_resource type="Script" path="res://UI/MainMenu/window-close-button.gd" id="14_bjb63"]
+[ext_resource type="Script" path="res://UI/MainMenu/Settings/graphics-settings.gd" id="22_2wqx4"]
+
+[sub_resource type="GDScript" id="GDScript_s5rwo"]
+script/source = "extends Panel
+
+
+func _ready() -> void:
+	var window = get_parent()
+	if window is Window:
+		window.transparent = true
+		window.borderless = true
+		
+"
+
+[sub_resource type="GDScript" id="GDScript_8qi8k"]
+script/source = "extends Button
+
+@export var remaps_container : Control
+
+func _pressed() -> void:
+	InputHelper.reset_all_actions()
+	for child in remaps_container.get_children():
+		child.update_keymap()
+	KeyPersistence.save_keymap()
+	KeyPersistence.load_keymap()
+"
+
+[node name="WindowWidget" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource("GDScript_s5rwo")
+
+[node name="SideTabsContainer" parent="." instance=ExtResource("2_bj11o")]
+layout_mode = 1
+size_flags_horizontal = 3
+
+[node name="TabContainer" parent="SideTabsContainer" index="1"]
+current_tab = 0
+
+[node name="Display" type="VBoxContainer" parent="SideTabsContainer/TabContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_tab_index = 0
+
+[node name="Label2" type="Label" parent="SideTabsContainer/TabContainer/Display"]
+layout_mode = 2
+text = "Display Settings :"
+
+[node name="HSeparator3" type="HSeparator" parent="SideTabsContainer/TabContainer/Display"]
+layout_mode = 2
+
+[node name="FullButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Display"]
+layout_mode = 2
+text = "Fullscreen Mode"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "full_screen"
+
+[node name="ResButton" type="OptionButton" parent="SideTabsContainer/TabContainer/Display"]
+layout_mode = 2
+selected = 1
+item_count = 4
+popup/item_0/text = "Resolution : 1280x720"
+popup/item_0/icon = ExtResource("4_2dg0r")
+popup/item_1/text = "Resolution : 1920x1080"
+popup/item_1/icon = ExtResource("4_2dg0r")
+popup/item_1/id = 1
+popup/item_2/text = "Resolution : 2560x1440"
+popup/item_2/icon = ExtResource("4_2dg0r")
+popup/item_2/id = 2
+popup/item_3/text = "Resolution : 3840x2160"
+popup/item_3/icon = ExtResource("4_2dg0r")
+popup/item_3/id = 3
+script = ExtResource("5_yjp23")
+variable_name = "resolution_index"
+
+[node name="FSRButton" type="OptionButton" parent="SideTabsContainer/TabContainer/Display"]
+visible = false
+layout_mode = 2
+selected = 1
+item_count = 7
+popup/item_0/text = "FSR Scale 0.5x (Performance)"
+popup/item_0/icon = ExtResource("6_uo0ho")
+popup/item_1/text = "FSR Scale 0.59x (Balanced)"
+popup/item_1/icon = ExtResource("6_uo0ho")
+popup/item_1/id = 1
+popup/item_2/text = "FSR Scale 0.67x (Quality)"
+popup/item_2/icon = ExtResource("6_uo0ho")
+popup/item_2/id = 2
+popup/item_3/text = "FSR Scale 0.77x (Ultra Quality)"
+popup/item_3/icon = ExtResource("6_uo0ho")
+popup/item_3/id = 3
+popup/item_4/text = "FSR No Scale 1.0x"
+popup/item_4/icon = ExtResource("6_uo0ho")
+popup/item_4/id = 4
+popup/item_5/text = "FSR Scale 1.5x (Super Sampling)"
+popup/item_5/icon = ExtResource("6_uo0ho")
+popup/item_5/id = 5
+popup/item_6/text = "FSR Scale 2.0x (Super Sampling)"
+popup/item_6/icon = ExtResource("6_uo0ho")
+popup/item_6/id = 6
+script = ExtResource("5_yjp23")
+variable_name = "fsr_index"
+
+[node name="Label" type="Label" parent="SideTabsContainer/TabContainer/Display"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 1
+text = "FSR Sharpness : "
+
+[node name="FSRSharpness" type="HSlider" parent="SideTabsContainer/TabContainer/Display"]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.1
+value = 0.2
+script = ExtResource("6_swit4")
+variable_name = "fsr_sharpness"
+
+[node name="Label3" type="Label" parent="SideTabsContainer/TabContainer/Display"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 1
+text = "Camera FOV: "
+script = ExtResource("8_aarec")
+label_text = "Camera FOV: "
+variable_name = "camera_fov"
+
+[node name="FOV" type="HSlider" parent="SideTabsContainer/TabContainer/Display"]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+min_value = 75.0
+max_value = 120.0
+value = 75.0
+script = ExtResource("6_swit4")
+variable_name = "camera_fov"
+
+[node name="ShowFPSButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Display"]
+layout_mode = 2
+text = "Show FPS"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "show_fps"
+
+[node name="ShowDebugButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Display"]
+layout_mode = 2
+text = "Show Debug Menu"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "show_debug_menu"
+
+[node name="Sound" type="VBoxContainer" parent="SideTabsContainer/TabContainer" index="2"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_tab_index = 1
+
+[node name="Label2" type="Label" parent="SideTabsContainer/TabContainer/Sound"]
+layout_mode = 2
+text = "Volume Settings :"
+
+[node name="HSeparator4" type="HSeparator" parent="SideTabsContainer/TabContainer/Sound"]
+layout_mode = 2
+
+[node name="SoundSetting" parent="SideTabsContainer/TabContainer/Sound" instance=ExtResource("7_cpsos")]
+layout_mode = 2
+bus_variable_name = "sound_master"
+bus_name = "Master"
+
+[node name="SoundSetting2" parent="SideTabsContainer/TabContainer/Sound" instance=ExtResource("7_cpsos")]
+layout_mode = 2
+bus_variable_name = "sound_music"
+bus_name = "Music"
+
+[node name="SoundSetting3" parent="SideTabsContainer/TabContainer/Sound" instance=ExtResource("7_cpsos")]
+layout_mode = 2
+bus_variable_name = "sound_effects"
+bus_name = "Sound Effects"
+
+[node name="SoundSetting4" parent="SideTabsContainer/TabContainer/Sound" instance=ExtResource("7_cpsos")]
+layout_mode = 2
+bus_variable_name = "sound_communication"
+bus_name = "Communication"
+
+[node name="SoundSetting5" parent="SideTabsContainer/TabContainer/Sound" instance=ExtResource("7_cpsos")]
+layout_mode = 2
+bus_variable_name = "sound_ui"
+bus_name = "UI"
+
+[node name="Graphics" type="VBoxContainer" parent="SideTabsContainer/TabContainer" index="3"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("22_2wqx4")
+metadata/_tab_index = 2
+
+[node name="Label4" type="Label" parent="SideTabsContainer/TabContainer/Graphics"]
+layout_mode = 2
+text = "Graphics Settings :"
+
+[node name="HSeparator6" type="HSeparator" parent="SideTabsContainer/TabContainer/Graphics"]
+layout_mode = 2
+
+[node name="RenderingButton" type="OptionButton" parent="SideTabsContainer/TabContainer/Graphics"]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Vulkan Plus"
+popup/item_1/text = "Vulkan Mobile"
+popup/item_1/id = 1
+popup/item_2/text = "Open GL"
+popup/item_2/id = 2
+script = ExtResource("5_yjp23")
+variable_name = "renderer_index"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SideTabsContainer/TabContainer/Graphics"]
+layout_mode = 2
+
+[node name="LowGraphics" type="Button" parent="SideTabsContainer/TabContainer/Graphics/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Low"
+
+[node name="MediumGraphics" type="Button" parent="SideTabsContainer/TabContainer/Graphics/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Medium"
+
+[node name="HighGraphics" type="Button" parent="SideTabsContainer/TabContainer/Graphics/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "High"
+
+[node name="sdfgiButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Graphics"]
+visible = false
+layout_mode = 2
+text = "Dynamic Global Illumination SDFGI"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "sdfgi"
+
+[node name="ssilButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Graphics"]
+visible = false
+layout_mode = 2
+text = "Screen Space Global Illumination"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "ssil"
+
+[node name="ssaoButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Graphics"]
+visible = false
+layout_mode = 2
+text = "Screen Space Ambient Occlusion"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "ssao"
+
+[node name="ssrButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Graphics"]
+visible = false
+layout_mode = 2
+text = "Screen Space Reflections"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "ssr"
+
+[node name="FXAAButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Graphics"]
+layout_mode = 2
+text = "Screen Space Anti-Aliasing (FXAA)"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "use_fxaa"
+
+[node name="TAAButton" type="CheckButton" parent="SideTabsContainer/TabContainer/Graphics"]
+layout_mode = 2
+text = "Temporal Anti-Aliasing (TAA)"
+icon = ExtResource("2_us8yy")
+script = ExtResource("3_kr2km")
+variable_name = "use_taa"
+
+[node name="Keybindings" type="VBoxContainer" parent="SideTabsContainer/TabContainer" index="4"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="V=HBoxContainer" type="HBoxContainer" parent="SideTabsContainer/TabContainer/Keybindings"]
+layout_mode = 2
+
+[node name="Label13" type="Label" parent="SideTabsContainer/TabContainer/Keybindings/V=HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Keybindings :"
+
+[node name="Button" type="Button" parent="SideTabsContainer/TabContainer/Keybindings/V=HBoxContainer" node_paths=PackedStringArray("remaps_container")]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Reset All Bindings"
+script = SubResource("GDScript_8qi8k")
+remaps_container = NodePath("../../VBoxContainer1/VBoxContainer2")
+
+[node name="HSeparator5" type="HSeparator" parent="SideTabsContainer/TabContainer/Keybindings"]
+layout_mode = 2
+
+[node name="VBoxContainer1" type="ScrollContainer" parent="SideTabsContainer/TabContainer/Keybindings"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="SideTabsContainer/TabContainer/Keybindings/VBoxContainer1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Remap" parent="SideTabsContainer/TabContainer/Keybindings/VBoxContainer1/VBoxContainer2" instance=ExtResource("13_p7f2x")]
+layout_mode = 2
+action_name = "forward"
+
+[node name="Remap2" parent="SideTabsContainer/TabContainer/Keybindings/VBoxContainer1/VBoxContainer2" instance=ExtResource("13_p7f2x")]
+layout_mode = 2
+action_name = "back"
+
+[node name="Remap3" parent="SideTabsContainer/TabContainer/Keybindings/VBoxContainer1/VBoxContainer2" instance=ExtResource("13_p7f2x")]
+layout_mode = 2
+action_name = "right"
+
+[node name="Remap4" parent="SideTabsContainer/TabContainer/Keybindings/VBoxContainer1/VBoxContainer2" instance=ExtResource("13_p7f2x")]
+layout_mode = 2
+action_name = "left"
+
+[node name="Remap5" parent="SideTabsContainer/TabContainer/Keybindings/VBoxContainer1/VBoxContainer2" instance=ExtResource("13_p7f2x")]
+layout_mode = 2
+action_name = "jump"
+
+[node name="Close" type="Button" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -117.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Close Window"
+script = ExtResource("14_bjb63")
+
+[editable path="SideTabsContainer"]

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://p1onwebf6dy"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/Settings/SettingsLogic/sound-setting.gd" id="1_jsjvr"]
+[ext_resource type="Texture2D" uid="uid://dbtn4d6130bdj" path="res://UI/MainMenu/Settings/icons/audio_mute.svg" id="2_a45aq"]
+
+[node name="SoundSetting" type="HBoxContainer" node_paths=PackedStringArray("label")]
+script = ExtResource("1_jsjvr")
+label = NodePath("Label")
+bus_name = "[NONE]"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("2_a45aq")
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "[NONE] Volume:"
+
+[node name="Slider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+tick_count = 5
+ticks_on_borders = true

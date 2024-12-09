@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7d6nbjsbyecr"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/window.gd" id="1_4kuru"]
+
+[node name="Window" type="Window"]
+disable_3d = true
+mode = 3
+wrap_controls = true
+transient = true
+exclusive = true
+unresizable = true
+borderless = true
+extend_to_title = true
+script = ExtResource("1_4kuru")
